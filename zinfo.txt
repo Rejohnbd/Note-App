@@ -1,3 +1,8 @@
 docker compose build
 docker compose up
 docker-compose run --rm php composer create-project --prefer-dist laravel/laravel .
+sudo chown -R $USER:$USER backend     
+docker exec -it note-backend bash  
+chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+php artisan migrate

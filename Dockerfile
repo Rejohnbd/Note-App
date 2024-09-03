@@ -10,9 +10,9 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Node.js and npm
-# RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
-#     && apt-get install -y nodejs \
-#     && npm install -g npm@latest
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+    && apt-get install -y nodejs \
+    && npm install -g npm@latest
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -20,18 +20,26 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Set working directory
 WORKDIR /var/www/html
 
+# Copy the application code
+COPY ./backend /var/www/html
+
+# Set correct permissions for storage and bootstrap/cache directories
+RUN chown -R www-data:www-data /var/www/html \
+    && chmod -R 775 /var/www/html/storage \
+    && chmod -R 775 /var/www/html/bootstrap/cache
+
 # Copy package.json and package-lock.json
-# COPY ./backend/package*.json ./
+COPY ./backend/package*.json ./
 
 # Install npm dependencies
-# RUN npm install
-
-# Copy the rest of the application code
-# COPY ./backend /var/www/html
+RUN npm install
 
 # Run npm build command
-# RUN npm run build
+RUN npm run build
 # RUN npm run dev
 
 # Expose port 80 for Nginx
-# EXPOSE 80
+EXPOSE 80
+
+# Start PHP-FPM
+CMD ["php-fpm"]
