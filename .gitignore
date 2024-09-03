@@ -1,1 +1,3 @@
 ./backend/vendor
+./frontend/.next
+./forntend/node_modules

@@ -52,6 +52,17 @@ services:
       - note-app
     depends_on:
       - php
+  
+  frontend:
+    build: ./frontend
+    command: npm run dev  # Adjust this to your development command
+    volumes:
+      - ./frontend:/app  # Maps frontend directory to /app in container
+      - /app/node_modules # Avoid overwriting node_modules
+    ports:
+      - 3000:3000  # Maps port 3000 on host to 3000 in container
+    depends_on:
+      - php
 
 volumes:
   mysql-data:
