@@ -29,13 +29,13 @@ RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 775 /var/www/html/bootstrap/cache
 
 # Copy package.json and package-lock.json
-COPY ./backend/package*.json ./
+# COPY ./backend/package*.json ./
 
 # Install npm dependencies
-RUN npm install
+# RUN npm install
 
 # Run npm build command
-RUN npm run build
+# RUN npm run build
 # RUN npm run dev
 
 # Expose port 80 for Nginx
