@@ -24,7 +24,7 @@ function ProfilePopup({ active, handlePopup }) {
         <div className="relative w-full px-3 py-2">
           <div>
             <ul>
-              <li className="w-full">
+              {/* <li className="w-full">
                 <Link href="/settings">
                   <div className="flex items-center space-x-[18px] rounded-lg p-[14px] text-bgray-600 hover:bg-bgray-100 hover:text-bgray-900 hover:dark:bg-darkblack-500">
                     <div className="w-[20px]">
@@ -92,9 +92,9 @@ function ProfilePopup({ active, handlePopup }) {
                     </div>
                   </div>
                 </Link>
-              </li>
+              </li> */}
               <li className="w-full">
-                <Link href="#">
+                <Link href="#" onClick={logout}>
                   <div className="flex items-center space-x-[18px] rounded-lg p-[14px] text-success-300">
                     <div className="w-[20px]">
                       <span>
@@ -114,7 +114,7 @@ function ProfilePopup({ active, handlePopup }) {
                         </svg>
                       </span>
                     </div>
-                    <div className="flex-1" onClick={logout}>
+                    <div className="flex-1">
                       <span className="text-sm font-semibold">Log Out</span>
                     </div>
                   </div>

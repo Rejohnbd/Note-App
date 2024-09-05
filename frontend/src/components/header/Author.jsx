@@ -3,13 +3,13 @@ import profile from "/public/static/images/avatar/profile-52x52.png";
 import Image from "next/image";
 import ProtoTypes from "prop-types";
 
-function Author({ showProfile }) {
+function Author({ showProfile, user }) {
   return (
     <div
       onClick={() => showProfile("profile")}
       className="flex cursor-pointer space-x-0 lg:space-x-3"
     >
-      <div className="h-[52px] w-[52px] overflow-hidden rounded-xl border border-bgray-300">
+      {/* <div className="h-[52px] w-[52px] overflow-hidden rounded-xl border border-bgray-300">
         <Image
           priority={true}
           height={profile.height}
@@ -18,11 +18,11 @@ function Author({ showProfile }) {
           src={profile.src}
           alt="avater"
         />
-      </div>
+      </div> */}
       <div className="hidden 2xl:block">
         <div className="flex items-center space-x-2.5">
           <h3 className="text-base font-bold leading-[28px] text-bgray-900 dark:text-white">
-            John Doe
+            {user?.name}
           </h3>
           <span>
             <svg
@@ -43,7 +43,7 @@ function Author({ showProfile }) {
           </span>
         </div>
         <p className="text-sm font-medium leading-[20px] text-bgray-600 dark:text-bgray-50">
-          Super Admin
+          {user?.email}
         </p>
       </div>
     </div>

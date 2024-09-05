@@ -9,7 +9,7 @@ import ResProfilePopup from "./ResProfilePopup";
 import Image from "next/image";
 import { useAuth } from "@/hooks/auth";
 
-function HeaderTwo({ handleSidebar }) {
+function HeaderTwo({ handleSidebar, user }) {
   const { logout } = useAuth()
   const [activePopup, handleActivePopup] = useState(false);
   return (
@@ -71,7 +71,7 @@ function HeaderTwo({ handleSidebar }) {
               onClick={() => handleActivePopup(!activePopup)}
               className="flex cursor-pointer space-x-0 lg:space-x-3"
             >
-              <div className="h-[52px] w-[52px] overflow-hidden rounded-xl border border-bgray-300">
+              {/* <div className="h-[52px] w-[52px] overflow-hidden rounded-xl border border-bgray-300">
                 <Image
                   priority={true}
                   height={profile.height}
@@ -80,8 +80,8 @@ function HeaderTwo({ handleSidebar }) {
                   src={profile.src}
                   alt="avater"
                 />
-              </div>
-              <div className="hidden 2xl:block">
+              </div> */}
+              {/* <div className="hidden 2xl:block"> */}
                 <div className="flex items-center space-x-2.5">
                   <h3 className="text-base font-bold leading-[28px] text-bgray-900">
                     John Doe
@@ -107,7 +107,7 @@ function HeaderTwo({ handleSidebar }) {
                 <p className="text-sm font-medium leading-[20px] text-bgray-600">
                   Super Admin
                 </p>
-              </div>
+              {/* </div> */}
             </div>
 
             <div className="profile-wrapper">
@@ -198,7 +198,7 @@ function HeaderTwo({ handleSidebar }) {
                         </Link>
                       </li>
                       <li className="w-full">
-                        <Link href="#">
+                        <Link href="#" onClick={logout}>
                           <div className="flex items-center space-x-[18px] rounded-lg p-[14px] text-success-300">
                             <div className="w-[20px]">
                               <span>
@@ -218,7 +218,7 @@ function HeaderTwo({ handleSidebar }) {
                                 </svg>
                               </span>
                             </div>
-                            <div className="flex-1" onClick={logout}>
+                            <div className="flex-1">
                               <span className="text-sm font-semibold">
                                 Log Out
                               </span>

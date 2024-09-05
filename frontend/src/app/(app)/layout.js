@@ -31,8 +31,8 @@ const AppLayout = ({ bg, overlay, children }) => {
                     bg ? bg : "dark:bg-darkblack-500"
                 } `}
                 >
-                <HeaderOne handleSidebar={() => setSidebar(!sidebar)} />
-                <HeaderTwo handleSidebar={() => setSidebar(!sidebar)} />
+                <HeaderOne handleSidebar={() => setSidebar(!sidebar)} user={user} />
+                <HeaderTwo handleSidebar={() => setSidebar(!sidebar)} user={user} />
                 {children}
                 </div>
             </div>

@@ -37,7 +37,7 @@ function SearchBar() {
             />
           </label>
         </div>
-        <div className="flex items-center space-x-[6px]">
+        {/* <div className="flex items-center space-x-[6px]">
           <span>
             <svg
               className="stroke-bgray-900 dark:stroke-gray-300"
@@ -56,7 +56,7 @@ function SearchBar() {
           <span className="text-base text-bgray-900 dark:text-bgray-300">
             K
           </span>
-        </div>
+        </div> */}
       </div>
     </div>
   );

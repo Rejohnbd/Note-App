@@ -1,7 +1,10 @@
 import ProtoTypes from "prop-types";
 import Link from "next/link";
+import { useAuth } from "@/hooks/auth";
 
 function ResProfilePopup({ isActive }) {
+  const { logout } = useAuth()
+
   return (
     <div
       style={{
@@ -15,7 +18,7 @@ function ResProfilePopup({ isActive }) {
       <div className="relative w-full px-3 py-2">
         <div>
           <ul>
-            <li className="w-full">
+            {/* <li className="w-full">
               <Link href="/settings">
                 <div className="flex items-center space-x-[18px] rounded-lg p-[14px] text-bgray-600 hover:bg-bgray-100 hover:text-bgray-900">
                   <div className="w-[20px]">
@@ -83,9 +86,9 @@ function ResProfilePopup({ isActive }) {
                   </div>
                 </div>
               </Link>
-            </li>
+            </li> */}
             <li className="w-full">
-              <Link href="#">
+              <Link href="#" onClick={logout}>
                 <div className="flex items-center space-x-[18px] rounded-lg p-[14px] text-success-300">
                   <div className="w-[20px]">
                     <span>
@@ -113,7 +116,7 @@ function ResProfilePopup({ isActive }) {
             </li>
           </ul>
         </div>
-        <div className="my-[14px] h-[1px] w-full bg-bgray-300"></div>
+        {/* <div className="my-[14px] h-[1px] w-full bg-bgray-300"></div>
         <div>
           <ul>
             <li className="w-full">
@@ -131,7 +134,7 @@ function ResProfilePopup({ isActive }) {
               </Link>
             </li>
           </ul>
-        </div>
+        </div> */}
       </div>
     </div>
   );
