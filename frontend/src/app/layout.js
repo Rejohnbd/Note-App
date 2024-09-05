@@ -17,7 +17,7 @@ import "swiper/css/pagination";
 // import "quill/dist/quill.snow.css";
 import { useEffect, useState } from "react";
 import { createContext } from "react";
-import ServiceWorker from '@/components/sw/sw';
+// import ServiceWorker from '@/components/sw/sw';
 
 
 export const ThemeContext = createContext(null);
@@ -43,7 +43,7 @@ const RootLayout = ({ children }) => {
 
     return (
         <ThemeContext.Provider value={{ theme, setTheme }}>
-        <ServiceWorker />
+        {/* <ServiceWorker /> */}
         <html lang="en">
             <head>
             <link rel="manifest" href="/manifest.json" />
