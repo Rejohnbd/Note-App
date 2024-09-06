@@ -14,7 +14,7 @@ import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-// import "quill/dist/quill.snow.css";
+import "quill/dist/quill.snow.css";
 import { useEffect, useState } from "react";
 import { createContext } from "react";
 // import ServiceWorker from '@/components/sw/sw';
