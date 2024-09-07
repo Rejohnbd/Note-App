@@ -28,12 +28,11 @@ class NoteController extends Controller
      */
     public function store(Request $request)
     {
-        // $request->user()->notes()->create($request->all());
+        $request->user()->notes()->create($request->all());
         return response()->json([
-            'success' => true,
-            'message' => 'Note created successfully',
-            'data' => $request->all()
-        ]);
+            'status'    => true,
+            'message'   => 'Note created successfully',
+        ], 201);
     }
 
     /**

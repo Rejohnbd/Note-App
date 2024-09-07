@@ -11,7 +11,8 @@ import ToggleBtn from "./ToggleBtn";
 import ModeToggler from "./ModeToggler";
 import Button from "../Button";
 import Input from '@/components/Input'
-import ModalEditor from '@/components/quil/ModalEditor'
+import ModalEditor from '@/components/quil/ModalEditor';
+import useNote from "@/hooks/useNote"; 
 
 function HeaderOne({ handleSidebar, user }) {
   const [popup, setPopup] = useState({
@@ -20,15 +21,28 @@ function HeaderOne({ handleSidebar, user }) {
     profile: false,
     store: false,
   });
+
   const [showModal, setShowModal] = useState(false);
+  const [note, setNote] = useState({ title: "", description: "" });
+  const { submitNote, loading, error } = useNote();
 
   const handlePopup = (name) => {
     setPopup({ ...popup, [name]: !popup[name] });
   };
 
-  const handleModal = () => {
-    console.log('click')
-  }
+  const handleChange = (e) => {
+    setNote({
+      ...note,
+      [e.target.id]: e.target.value,
+    });
+  };
+
+  const handleModalSubmit = async (e) => {
+    e.preventDefault();
+    console.log(note)
+    await submitNote(note);
+    // setShowModal(false); 
+  };
 
   return (
     <>
@@ -109,56 +123,68 @@ function HeaderOne({ handleSidebar, user }) {
           <div className="flex items-center justify-center fixed inset-0 z-50 bg-black/60">
             <div className="relative w-[90%] md:w-[80%] lg:w-[700px] my-6 mx-auto  h-auto">
               <div className={`translate duration-60 h-full ${showModal ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-10'}`}>
-                <div className="w-full h-auto rounded-xl relative flex flex-col bg-white">
-                  <header className="h-[60px] flex items-center p-6 rounded-t justify-center relative border-b">
-                    <div 
-                      className="p-3 absolute left-3 hover:bg-gray-300 rounded-full cursor-pointer"
-                      onClick={() => setShowModal(false)}
-                    >
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
-                      </svg>
-                    </div>
-                    <h2 className="text-lg font-bold">Create Note</h2>
-                  </header>
-                  <section className="p-6">
-                    <div className="mb-5">
-                      <label
-                        htmlFor="title"
-                        className="block text-basse dark:text-bgray-50 font-medium text-bgray-600 mb-2"
+                <form 
+                  onSubmit={handleModalSubmit}
+                >
+                  <div className="w-full h-auto rounded-xl relative flex flex-col bg-white">
+                    <header className="h-[60px] flex items-center p-6 rounded-t justify-center relative border-b">
+                      <div 
+                        className="p-3 absolute left-3 hover:bg-gray-300 rounded-full cursor-pointer"
+                        onClick={() => setShowModal(false)}
                       >
-                        Title
-                      </label>
-                      <Input
-                          id="title"
-                          type="text"
-                          
-                          className="text-bgray-800 text-base border border-bgray-300 dark:border-darkblack-400 dark:bg-darkblack-500 dark:text-white h-14 w-full focus:border-success-300 focus:ring-0 rounded-lg px-4 py-3.5 placeholder:text-bgray-500 placeholder:text-base"
-                          
-                          required
-                          placeholder="Title"
-                      />
-                    </div>
-                    <div className="mb-5">
-                      <label
-                        className="block text-basse dark:text-bgray-50 font-medium text-bgray-600 mb-2"
-                      >
-                        Description
-                      </label>
-                      <ModalEditor />
-                    </div>
-                  </section>
-                  <section className="pr-6 mb-10">
-                    <div className="flex justify-end">
-                      <button
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+                        </svg>
+                      </div>
+                      <h2 className="text-lg font-bold">Create Note</h2>
+                    </header>
+                    <section className="p-6">
+                      <div className="mb-5">
+                        <label
+                          htmlFor="title"
+                          className="block text-basse dark:text-bgray-50 font-medium text-bgray-600 mb-2"
+                        >
+                          Title
+                        </label>
+                        <Input
+                            id="title"
+                            type="text"
+                            value={note.title}
+                            onChange={handleChange}
+                            className="text-bgray-800 text-base border border-bgray-300 dark:border-darkblack-400 dark:bg-darkblack-500 dark:text-white h-14 w-full focus:border-success-300 focus:ring-0 rounded-lg px-4 py-3.5 placeholder:text-bgray-500 placeholder:text-base"
+                            required
+                            placeholder="Title"
+                        />
+                      </div>
+                      <div className="mb-5">
+                        <label
+                          className="block text-basse dark:text-bgray-50 font-medium text-bgray-600 mb-2"
+                        >
+                          Description
+                        </label>
+                        <ModalEditor 
+                          value={note.description} // Pass the current description state
+                          onChange={(value) => setNote((prev) => ({ ...prev, description: value }))}
+                        />
+                      </div>
+                    </section>
+                    <section className="pr-6 mb-10">
+                      <div className="flex justify-end">
+                        <button
+                        type="submit"
                         aria-label="none"
+                        disabled={loading}
                         className="rounded-lg bg-success-300 px-12 py-3.5 transition-all text-white font-semibold hover:bg-success-400"
                       >
-                        Create Note
+                        {loading ? "Submitting..." : "Create Note"}
                       </button>
-                    </div>
-                  </section>
-                </div>
+                      </div>
+                    </section>
+                    {error && (
+                    <p className="text-red-500 text-center">{error}</p>
+                  )}
+                  </div>
+                </form>
               </div>
             </div>
         </div>
