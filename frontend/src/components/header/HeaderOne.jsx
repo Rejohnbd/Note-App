@@ -24,7 +24,7 @@ function HeaderOne({ handleSidebar, user }) {
 
   const [showModal, setShowModal] = useState(false);
   const [note, setNote] = useState({ title: "", description: "" });
-  const { submitNote, loading, error } = useNote();
+  const { submitNote, fetchNotes, loading, error } = useNote();
 
   const handlePopup = (name) => {
     setPopup({ ...popup, [name]: !popup[name] });
@@ -41,7 +41,8 @@ function HeaderOne({ handleSidebar, user }) {
     e.preventDefault();
     console.log(note)
     await submitNote(note);
-    // setShowModal(false); 
+    setShowModal(false); 
+    setNote({ title: "", description: "" }); 
   };
 
   return (

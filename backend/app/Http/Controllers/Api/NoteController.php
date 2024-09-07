@@ -12,7 +12,10 @@ class NoteController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json([
+            'status'    => true,
+            'data'      => auth()->user()->notes()->orderBy('id', 'desc')->get(),
+        ], 200);
     }
 
     /**
