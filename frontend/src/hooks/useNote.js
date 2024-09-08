@@ -1,6 +1,6 @@
 "use client";
 import { useState, useCallback } from "react";
-import axios from "@/lib/axios"; // Adjust the import path as necessary
+import axios from "@/lib/axios";
 
 const useNote = () => {
     const [loading, setLoading] = useState(false);
@@ -15,7 +15,7 @@ const useNote = () => {
             await axios.get(`${backendUrl}/sanctum/csrf-cookie`);
         } catch (err) {
             console.error("Error setting CSRF token:", err);
-            throw err; // Re-throw the error to be handled by submitNote
+            throw err;
         }
     };
 
@@ -26,8 +26,8 @@ const useNote = () => {
         setError(null);
         try {
             const response = await axios.get("/api/notes");
-            console.log("Fetched notes:", response.data.data); // Debug statement
-            setNotes(response.data.data);
+            console.log("Fetched notes:", response.data.data);
+            setNotes([...response.data.data]); // Force state update with new array
         } catch (err) {
             setError(err.response ? err.response.data.message : err.message);
             console.error("Error fetching notes:", err);
@@ -42,13 +42,13 @@ const useNote = () => {
         setLoading(true);
         setError(null);
         try {
-            await csrf(); // Set up CSRF token
+            await csrf();
             const response = await axios.post(`${backendUrl}/api/notes`, noteData);
             if (response.status !== 201) {
                 throw new Error("Failed to submit the note");
             }
             console.log("Note submitted successfully:", response.data);
-            await fetchNotes(); // Refresh notes after submission
+            await fetchNotes(); // Ensure notes are refreshed
         } catch (err) {
             setError(err.response ? err.response.data.message : err.message);
             console.error("Error submitting the note:", err);

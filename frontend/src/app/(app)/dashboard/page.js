@@ -8,9 +8,10 @@ const Dashboard = () => {
     const { notes, fetchNotes, loading, error } = useNote();
 
     useEffect(() => {
-        console.log("Fetching notes...");
+        console.log("Fetching notes... in dashboard");
+
         fetchNotes();
-    }, [fetchNotes]);
+    }, []);
 
     return (
         <main className="w-full px-6 pb-6 pt-[100px] sm:pt-[156px] xl:px-[48px] xl:pb-[48px] dark:bg-darkblack-700">

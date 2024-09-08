@@ -13,8 +13,10 @@ import Button from "../Button";
 import Input from '@/components/Input'
 import ModalEditor from '@/components/quil/ModalEditor';
 import useNote from "@/hooks/useNote"; 
+import { useRouter } from 'next/router'
 
 function HeaderOne({ handleSidebar, user }) {
+  // const router = useRouter()
   const [popup, setPopup] = useState({
     notification: false,
     massage: false,
@@ -43,6 +45,7 @@ function HeaderOne({ handleSidebar, user }) {
     await submitNote(note);
     setShowModal(false); 
     setNote({ title: "", description: "" }); 
+    window.location.reload()
   };
 
   return (
